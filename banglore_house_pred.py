@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import pickle
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.ensemble import RandomForestRegressor
@@ -111,3 +112,11 @@ print(f"Predicted price: {predicted_val:.4f}")
 
 print(f"Cross Validation Score : {cross_val_sc.mean()}")
 print(f"Stand alone score : {model.score(X_test, y_test)}")
+
+feature_list = x_numeric.columns.tolist()
+
+dict1={'model': model, 'scaler': scalar, 'columns': feature_list}
+with open("house_prices_model.pkl",'wb') as obj1:
+  pickle.dump(dict1,obj1)
+with open("house_prices_model.pkl",'rb') as obj2:
+  var1=pickle.load(obj2)
